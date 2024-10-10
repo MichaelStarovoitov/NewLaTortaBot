@@ -34,3 +34,13 @@ def write_file(file_path, data):
     else:
         with open(file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
+    
+
+def read_text_file(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            data = file.read()
+    except Exception as e:
+        print(f"Произошла ошибка при чтении файла: {e}")
+        data = ''
+    return data

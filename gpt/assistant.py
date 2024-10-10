@@ -2,8 +2,7 @@ import time
 import openai
 from openai.types.beta.threads.run import Run
 
-from common.textWork import escape_markdown_v2, get_simple_markdown
-from data.config import OPENAI_API_KEY, AssistantID, MODEL, pattern
+from data.config import OPENAI_API_KEY, AssistantID, MODEL
 
 
 class parentAssistant:
