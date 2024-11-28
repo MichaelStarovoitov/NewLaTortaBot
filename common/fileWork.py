@@ -44,3 +44,10 @@ def read_text_file(file_path):
         print(f"Произошла ошибка при чтении файла: {e}")
         data = ''
     return data
+
+def write_text_file(file_path, text, mode='a'):
+    try:
+        with open(file_path, mode, encoding='utf-8') as file:
+            file.write(text)
+    except Exception as e:
+        print(f"Произошла ошибка при записи в файл: {e}")

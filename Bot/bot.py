@@ -3,7 +3,8 @@ from aiogram import Router, F
 from aiogram.types import Message
 from aiogram import Bot, Dispatcher
 
-from data.config import TOKEN
+from data.config import TOKEN, resultQestionPath
+from common.fileWork import write_text_file
 
 class parentBot:
     def __init__(self):
@@ -53,16 +54,20 @@ class teleBot(parentBot):
 
     async def workWithMessage(self, message):
         print(message.text)
+        resultMessage = ''
         try:
             if self.usersList.returnUserById(message.chat.id):
                 idTread = self.usersList.returnUserById(message.chat.id)['idThread']
             else:
                 idTread = self.neiro.create_thread() 
                 self.usersList.appendUser({'idChat':message.chat.id, 'idThread': idTread})
-            await message.answer(self.neiro.sendMessage(idTread, message.text), parse_mode="Markdown")
+            resultMessage = self.neiro.sendMessage(idTread, message.text)
+            # resultMessage= "hello"
         except Exception as ex:
-            await message.answer(f'Помилка: забагато запитів у хвилину')
+            resultMessage = f'Помилка: забагато запитів у хвилину'
             print(f'error: {ex}')
+        write_text_file(resultQestionPath, f'\n==========text==========\n{message.text}\n=======answer======\n{resultMessage}\n')
+        await message.answer(resultMessage, parse_mode="Markdown")
 
     async def workWithMessageEr(self, message):
         print(message.text)
@@ -71,7 +76,8 @@ class teleBot(parentBot):
         else:
             idTread = self.neiro.create_thread() 
             self.usersList.appendUser({'idChat':message.chat.id, 'idThread': idTread})
-        await message.answer(f'{self.neiro.sendMessage(idTread, message.text)}', parse_mode="MarkdownV2")
+        resultMessage = self.neiro.sendMessage(idTread, message.text)
+        await message.answer(f'{resultMessage}', parse_mode="MarkdownV2")
             
 
    

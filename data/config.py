@@ -18,4 +18,5 @@ pattern = r'【\d+:\d+†[^】]+】'
 
 nameBot = 'Помічник у кондитерській'
 proptPath = os.path.join(parent_dir, 'dataBase', "propt.txt")
+resultQestionPath = os.path.join(parent_dir, 'dataBase', "resultQestion.txt")
 propt = read_text_file(proptPath)
